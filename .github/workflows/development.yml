@@ -1,0 +1,48 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the develop branch
+on:
+  pull_request:
+    branches: [ develop ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  integration:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - name: Copy .env File
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+      - name: Install Composer Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+      - name: Install NPM Dependencies
+        run: npm install && npm run dev
+      - name: Generate key
+        run: php artisan key:generate
+      - name: Run Unit and Feature Tests
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+				run: vendor/bin/phpunit
+			- name: Copy .env to .env.cypress
+				run: php -r "file_exists('.env.cypress') || copy('.env', '.env.cypress');"
+			- name: Run Acceptance Tests
+				uses: cypress-io/github-action@v1.16.1
+				with:
+					with:
+						start: php artisan serve
+						wait-on: http://localhost:8000
+      - name: Push to built branch
+        uses: Automattic/action-commit-to-branch@master
+        with:
+          branch: ${{ github.head_ref }}
+          commit_message: 'Build master'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
