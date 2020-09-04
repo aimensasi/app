@@ -36,9 +36,8 @@ jobs:
 			- name: Run Acceptance Tests
 				uses: cypress-io/github-action@v1.16.1
 				with:
-					with:
-						start: php artisan serve
-						wait-on: http://localhost:8000
+					start: php artisan serve
+					wait-on: http://localhost:8000
       - name: Push to built branch
         uses: Automattic/action-commit-to-branch@master
         with:
