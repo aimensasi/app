@@ -35,6 +35,9 @@ jobs:
         run: php -r "file_exists('.env.cypress') || copy('.env', '.env.cypress');"
       - name: Run Acceptance Tests
         uses: cypress-io/github-action@v1.16.1
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
         with:
           start: php artisan serve
           wait-on: http://localhost:8000
