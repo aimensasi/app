@@ -18,6 +18,10 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      - name: Start MYSQL
+        uses: samin/mysql-action@v1.3
+        with:
+          mysql database: laravel
       - name: Copy .env File
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       - name: Install Composer Dependencies
@@ -39,9 +43,6 @@ jobs:
           start: php artisan serve
           wait-on: http://localhost:8000
           config: baseUrl=http://localhost:8000
-        env:
-          DB_CONNECTION: sqlite
-          DB_DATABASE: database/database.sqlite
       - name: Push to built branch
         uses: Automattic/action-commit-to-branch@master
         with:
