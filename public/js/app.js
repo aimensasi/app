@@ -19237,8 +19237,8 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/aimen/Sites/Code/Laravel/app/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/aimen/Sites/Code/Laravel/app/resources/css/app.css */"./resources/css/app.css");
+__webpack_require__(/*! /home/runner/work/app/app/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/runner/work/app/app/resources/css/app.css */"./resources/css/app.css");
 
 
 /***/ })
