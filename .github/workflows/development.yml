@@ -24,15 +24,17 @@ jobs:
       - name: Copy .env.cypress File
         run: php -r "file_exists('.env.cypress') || copy('.env.example', '.env.cypress');"
       - name: Create sqlite file
-        run: touch database/database.sqlite
+        run: |
+          touch database/database.sqlite
+          touch database/cypress.sqlite
       - name: update .env variables
-        uses: falnyr/replace-env-vars-action@v1.2.1
-        env:
-          APP_NAME: Test App
-        with:
-          filename: .env
-      - name: Dump .env file for testing
-        run: cat .env
+        run: |
+          echo "DB_CONNECTION=sqlite" >> .env
+          echo "DATABASE_NAME=database.sqlite" >> .env
+      - name: update .env.cypress variables
+        run: |
+          echo "DB_CONNECTION=sqlite" >> .env
+          echo "DATABASE_NAME=cypress.sqlite" >> .env
       - name: Dump .env.cypress file for testing
         run: cat .env.cypress
       - name: Cache Dependencies
