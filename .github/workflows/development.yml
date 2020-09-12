@@ -49,26 +49,22 @@ jobs:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
         run: vendor/bin/phpunit
-      - name: export env
+      - name: switch env
         run: |
-          export APP_ENV=integration
+          mv .env .env.backup
+          mv .env.cypress .env
+          php artisan key:generate
           php artisan config:clear
-      - name: set environment variables
-        uses: allenevans/set-env@v1.0.0
-        with:
-          APP_ENV: integration
-
-      - name: Printenv
-        run: |
-          echo "APP_ENV=${APP_ENV}"
-          printenv
       - name: Run Acceptance Tests
         uses: cypress-io/github-action@v1.16.1
         with:
-          start: php artisan serve --env=integration
+          start: php artisan serve
           wait-on: http://localhost:8000
           config: baseUrl=http://localhost:8000
-
+      - name: switch env back
+        run: |
+          mv .env .env.cypress
+          mv .env.backup .env
       - name: Push to built branch
         uses: Automattic/action-commit-to-branch@master
         with:
