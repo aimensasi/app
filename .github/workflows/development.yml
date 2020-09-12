@@ -53,6 +53,15 @@ jobs:
         run: |
           export APP_ENV=integration
           php artisan config:clear
+      - name: set environment variables
+        uses: allenevans/set-env@v1.0.0
+        with:
+          APP_ENV: integration
+
+      - name: Printenv
+        run: |
+          echo "APP_ENV=${APP_ENV}"
+          printenv
       - name: Run Acceptance Tests
         uses: cypress-io/github-action@v1.16.1
         with:
