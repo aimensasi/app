@@ -55,6 +55,8 @@ jobs:
           php artisan cache:clear
           php artisan view:clear
       - name: Run Acceptance Tests
+        env:
+          APP_ENV: integration
         uses: cypress-io/github-action@v1.16.1
         with:
           start: php artisan serve
