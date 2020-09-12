@@ -1,12 +1,14 @@
-import "./commands";
-import "./laravel-commands";
-import "./assertions";
+import './commands';
+import './laravel-commands';
+import './assertions';
 
 before(() => {
-	cy.task("activateCypressEnvFile", {}, { log: false });
-	cy.artisan("migrate");
+	cy.task('activateCypressEnvFile', {}, { log: false });
+	cy.artisan('key:generate');
+	cy.artisan('migrate');
 });
 
 after(() => {
-	cy.task("activateLocalEnvFile", {}, { log: false });
+	cy.artisan('migrate:reset');
+	cy.task('activateLocalEnvFile', {}, { log: false });
 });

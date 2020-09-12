@@ -1,5 +1,5 @@
-const swap = require("./swap-env");
+const swap = require('./swap-env');
 
-module.exports = (on, config) => {
-	on("task", swap);
+module.exports = on => {
+	on('task', swap);
 };

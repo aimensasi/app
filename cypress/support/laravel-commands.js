@@ -9,7 +9,7 @@
 Cypress.Commands.add('login', (attributes = {}) =>
 	cy
 		.csrfToken()
-		.then((token) =>
+		.then(token =>
 			cy.request({
 				method: 'POST',
 				url: '/__cypress__/login',
@@ -35,7 +35,7 @@ Cypress.Commands.add('login', (attributes = {}) =>
 Cypress.Commands.add('logout', () =>
 	cy
 		.csrfToken()
-		.then((token) =>
+		.then(token =>
 			cy.request({
 				method: 'POST',
 				url: '/__cypress__/logout',
@@ -82,7 +82,7 @@ Cypress.Commands.add('create', (model, times = null, attributes = {}) => {
 
 	return cy
 		.csrfToken()
-		.then((token) =>
+		.then(token =>
 			cy.request({
 				method: 'POST',
 				url: '/__cypress__/factory',
@@ -90,7 +90,7 @@ Cypress.Commands.add('create', (model, times = null, attributes = {}) => {
 				log: false,
 			})
 		)
-		.then((response) => {
+		.then(response => {
 			Cypress.log({
 				name: 'create',
 				message: model + (times ? `(${times} times)` : ''),
@@ -120,7 +120,7 @@ Cypress.Commands.add('refreshDatabase', (options = {}) =>
  * @example cy.seed();
  *          cy.seed('PlansTableSeeder');
  */
-Cypress.Commands.add('seed', (seederClass) =>
+Cypress.Commands.add('seed', seederClass =>
 	cy.artisan('db:seed', {
 		'--class': seederClass,
 	})
@@ -141,7 +141,7 @@ Cypress.Commands.add('artisan', (command, parameters = {}) => {
 		consoleProps: () => ({ command, parameters }),
 	});
 
-	return cy.csrfToken().then((token) =>
+	return cy.csrfToken().then(token =>
 		cy.request({
 			method: 'POST',
 			url: '/__cypress__/artisan',
@@ -159,10 +159,10 @@ Cypress.Commands.add('artisan', (command, parameters = {}) => {
  * @example cy.php('2 + 2');
  *          cy.php('App\\User::count());
  */
-Cypress.Commands.add('php', (command) =>
+Cypress.Commands.add('php', command =>
 	cy
 		.csrfToken()
-		.then((token) =>
+		.then(token =>
 			cy.request({
 				method: 'POST',
 				url: '/__cypress__/run-php',
@@ -170,7 +170,7 @@ Cypress.Commands.add('php', (command) =>
 				log: false,
 			})
 		)
-		.then((response) => {
+		.then(response => {
 			Cypress.log({
 				name: 'php',
 				message: command,

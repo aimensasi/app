@@ -1,0 +1,89 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the develop branch
+on:
+  pull_request:
+    branches: [ develop ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  integration:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      
+      
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
+          coverage: none
+      
+      
+      - name: Cache composer dependencies
+        id: dep-cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.composer/cache/files
+          key: dependencies-composer-${{ hashFiles('composer.json') }}
+        
+        
+      - name: Copy .env File
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+      - name: Copy .env.cypress File
+        run: php -r "file_exists('.env.cypress') || copy('.env.cypress.example', '.env.cypress');"
+
+
+      - name: Create sqlite file
+        run: touch database/database.sqlite
+      
+      - name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: 'node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('package.json.lock') }}
+
+      - name: Install Composer Dependencies
+        run: composer update -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+
+
+      - name: Install & compile npm dependency
+        run: npm install && npm run dev
+
+
+      - name: Generate key
+        run: |
+          php artisan key:generate
+          php artisan key:generate --env=cypress
+
+
+      - name: Run Unit and Feature Tests
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+        run: vendor/bin/phpunit
+
+
+      - name: Run Acceptance Tests
+        uses: cypress-io/github-action@v1.16.1
+        with:
+          start: php artisan serve
+          wait-on: http://localhost:8000
+          config: baseUrl=http://localhost:8000
+
+
+      - name: Push to built branch
+        uses: Automattic/action-commit-to-branch@master
+        with:
+          branch: ${{ github.head_ref }}
+          commit_message: 'Compiled npm assets'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
