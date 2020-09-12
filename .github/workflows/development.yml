@@ -39,12 +39,9 @@ jobs:
           path: |
             vendor/
             node_module/
-          key: composer-${{ date('yyyy') }}-${{ date('mm') }}-${{ date('dd') }}-${{ github.sha }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
-            composer-${{ date('yyyy') }}-${{ date('mm') }}-${{ date('dd') }}-
-            composer-${{ date('yyyy') }}-${{ date('mm') }}-
-            composer-${{ date('yyyy') }}-
-            composer-
+            ${{ runner.os }}-composer-
         
       - name: Install Composer Dependencies
         run: composer update -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
