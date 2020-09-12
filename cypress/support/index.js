@@ -4,6 +4,7 @@ import './assertions';
 
 before(() => {
 	cy.task('activateCypressEnvFile', {}, { log: false });
+	cy.artisan('key:generate');
 	cy.artisan('migrate');
 });
 
