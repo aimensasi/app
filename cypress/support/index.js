@@ -8,6 +8,6 @@ before(() => {
 });
 
 after(() => {
-	cy.task('activateLocalEnvFile', {}, { log: false });
 	cy.artisan('migrate:reset');
+	cy.task('activateLocalEnvFile', {}, { log: false });
 });
