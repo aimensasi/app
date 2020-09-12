@@ -22,28 +22,17 @@ jobs:
       - name: Copy .env File
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       - name: Copy .env.cypress File
-        run: php -r "file_exists('.env.cypress') || copy('.env.example', '.env.cypress');"
+        run: php -r "file_exists('.env.cypress') || copy('.env.cypress.example', '.env.cypress');"
       - name: Create sqlite file
         run: |
           touch database/database.sqlite
           touch database/cypress.sqlite
-      - name: update .env variables
-        run: |
-          echo "DB_CONNECTION=sqlite" >> .env
-          echo "DATABASE_NAME=database.sqlite" >> .env
-      - name: update .env.cypress variables
-        run: |
-          echo "DB_CONNECTION=sqlite" >> .env.cypress
-          echo "DATABASE_NAME=cypress.sqlite" >> .env.cypress
-      - name: Dump .env.cypress file for testing
-        run: cat .env.cypress
       - name: Cache Dependencies
         id: dep-cache
         uses: actions/cache@v2.1.1
         with:
           path: |
             vendor/
-            node_module/
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
