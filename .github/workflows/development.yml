@@ -61,10 +61,6 @@ jobs:
           start: php artisan serve
           wait-on: http://localhost:8000
           config: baseUrl=http://localhost:8000
-      - name: switch env back
-        run: |
-          mv .env .env.cypress
-          mv .env.backup .env
       - name: Push to built branch
         uses: Automattic/action-commit-to-branch@master
         with:
