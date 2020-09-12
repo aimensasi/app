@@ -49,14 +49,9 @@ jobs:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
         run: vendor/bin/phpunit
-      - name: clear stuff
-        run: |
-          php artisan config:clear
-          php artisan cache:clear
-          php artisan view:clear
+      - name: export env
+        run: export APP_ENV=integration
       - name: Run Acceptance Tests
-        env:
-          APP_ENV: integration
         uses: cypress-io/github-action@v1.16.1
         with:
           start: php artisan serve --env=integration
