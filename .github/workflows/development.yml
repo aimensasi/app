@@ -50,7 +50,9 @@ jobs:
           DB_DATABASE: database/database.sqlite
         run: vendor/bin/phpunit
       - name: export env
-        run: export APP_ENV=integration
+        run: |
+          export APP_ENV=integration
+          php artisan config:clear
       - name: Run Acceptance Tests
         uses: cypress-io/github-action@v1.16.1
         with:
