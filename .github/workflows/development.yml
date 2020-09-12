@@ -49,12 +49,6 @@ jobs:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
         run: vendor/bin/phpunit
-      - name: switch env
-        run: |
-          mv .env .env.backup
-          mv .env.cypress .env
-          php artisan key:generate
-          php artisan config:clear
       - name: Run Acceptance Tests
         uses: cypress-io/github-action@v1.16.1
         with:
