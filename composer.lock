@@ -7327,12 +7327,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/thetechyhub/cypress.git",
-                "reference": "97c15eb987577a51bfd1ac259d6caa6489ed8baf"
+                "reference": "ef04dcf6c00cb36aa36f60027a549d3235407c6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thetechyhub/cypress/zipball/97c15eb987577a51bfd1ac259d6caa6489ed8baf",
-                "reference": "97c15eb987577a51bfd1ac259d6caa6489ed8baf",
+                "url": "https://api.github.com/repos/thetechyhub/cypress/zipball/ef04dcf6c00cb36aa36f60027a549d3235407c6c",
+                "reference": "ef04dcf6c00cb36aa36f60027a549d3235407c6c",
                 "shasum": ""
             },
             "require": {
@@ -7394,7 +7394,7 @@
                 "source": "https://github.com/thetechyhub/cypress/tree/master",
                 "issues": "https://github.com/thetechyhub/cypress/issues"
             },
-            "time": "2020-09-12T14:12:41+00:00"
+            "time": "2020-09-12T14:56:27+00:00"
         },
         {
             "name": "webmozart/assert",
