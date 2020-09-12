@@ -26,7 +26,6 @@ jobs:
       - name: Create sqlite file
         run: |
           touch database/database.sqlite
-          touch database/cypress.sqlite
       - name: Cache Dependencies
         id: dep-cache
         uses: actions/cache@v2.1.1
@@ -50,7 +49,11 @@ jobs:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
         run: vendor/bin/phpunit
-
+      - name: clear stuff
+        run: |
+          php artisan config:clear
+          php artisan cache:clear
+          php artisan view:clear
       - name: Run Acceptance Tests
         uses: cypress-io/github-action@v1.16.1
         with:
