@@ -32,6 +32,8 @@ jobs:
           envkey_APP_NAME: "TEST ENV CHANGE"
       - name: Dump .env file for testing
         run: cat .env
+      - name: Dump .env.cypress file for testing
+        run: cat .env.cypress
       - name: Cache Dependencies
         id: dep-cache
         uses: actions/cache@v2.1.1
