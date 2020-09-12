@@ -2,6 +2,7 @@ const fs = require('fs');
 
 module.exports = {
 	activateCypressEnvFile() {
+		console.log("WTF IS HAPPENING...", fs.existsSync('.env.cypress'));
 		if (fs.existsSync('.env.cypress')) {
 			fs.renameSync('.env', '.env.backup');
 			fs.renameSync('.env.cypress', '.env');
