@@ -26,10 +26,11 @@ jobs:
       - name: Create sqlite file
         run: touch database/database.sqlite
       - name: update .env variables
-        uses: SpicyPizza/create-envfile@v1.0
+        uses: falnyr/replace-env-vars-action@v1.2.1
+        env:
+          APP_NAME: Test App
         with:
-          file_name: .env
-          envkey_APP_NAME: "TEST ENV CHANGE"
+          filename: .env
       - name: Dump .env file for testing
         run: cat .env
       - name: Dump .env.cypress file for testing
