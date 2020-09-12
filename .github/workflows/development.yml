@@ -60,7 +60,9 @@ jobs:
 
 
       - name: Generate key
-        run: php artisan key:generate
+        run: |
+          php artisan key:generate
+          php artisan key:generate --env=cypress
 
 
       - name: Run Unit and Feature Tests
