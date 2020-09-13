@@ -1,9 +1,9 @@
 module.exports = {
 	fontFamily: {
-		sans: ["Nunito", "sans-serif"]
+		sans: ['Nunito', 'sans-serif'],
 	},
 	extend: {},
-  theme: {},
-  variants: {},
-  plugins: [],
-}
+	theme: {},
+	variants: {},
+	plugins: [],
+};

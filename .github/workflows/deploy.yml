@@ -6,9 +6,9 @@ name: CD
 # events but only for the develop branch
 on:
   push:
-    branches: |
-      master
-      staging
+    branches:
+    	- master
+      	- staging
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -28,16 +28,16 @@ jobs:
           php-version: 7.4
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite
           coverage: none
-      
-      
+
+
       - name: Cache composer dependencies
         id: dep-cache
         uses: actions/cache@v1
         with:
           path: ~/.composer/cache/files
           key: dependencies-composer-${{ hashFiles('composer.json') }}
-        
-        
+
+
       - name: Copy .env File
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       - name: Copy .env.cypress File
@@ -46,7 +46,7 @@ jobs:
 
       - name: Create sqlite file
         run: touch database/database.sqlite
-      
+
       - name: Cache npm dependencies
         uses: actions/cache@v2
         with:
@@ -78,13 +78,13 @@ jobs:
           start: php artisan serve
           wait-on: http://localhost:8000
           config: baseUrl=http://localhost:8000
-      
+
       - name: Setup Deployer
         uses: atymic/deployer-php-action@0.1.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
           ssh-known-hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
       - name: Deploy
-        env: 
+        env:
           DOT_ENV: ${{ secrets.DOT_ENV }}
         run: dep deploy production --tag=${{ env.GITHUB_REF }} -vvv
