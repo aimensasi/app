@@ -72,13 +72,8 @@
 				"url": "git@github.com:thetechyhub/cypress.git"
 			},
 			{
-<<<<<<< HEAD
-				"type": "path",
-				"url": "../workflow"
-=======
 				"type": "vcs",
 				"url": "git@github.com:thetechyhub/workflow.git"
->>>>>>> 18a4fdbf179258e3d1a6201a52fd54e8957d41de
 			}
 		]
 }
