@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "3f5f6778b4acdc75ea969d32a59a9b85",
+=======
+    "content-hash": "a45b1c0437222b1b7a08562066d7a451",
+>>>>>>> 18a4fdbf179258e3d1a6201a52fd54e8957d41de
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -4809,10 +4813,23 @@
         {
             "name": "thetechyhub/workflow",
             "version": "dev-master",
+<<<<<<< HEAD
             "dist": {
                 "type": "path",
                 "url": "../workflow",
                 "reference": "538b37d29d13fe625b1a1325ceb93ce5eb538a1d"
+=======
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thetechyhub/workflow.git",
+                "reference": "8ee0c56165c89c20d4eae5530f467cbd21cc8430"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thetechyhub/workflow/zipball/8ee0c56165c89c20d4eae5530f467cbd21cc8430",
+                "reference": "8ee0c56165c89c20d4eae5530f467cbd21cc8430",
+                "shasum": ""
+>>>>>>> 18a4fdbf179258e3d1a6201a52fd54e8957d41de
             },
             "require": {
                 "illuminate/support": "^7.0|^8.0",
@@ -4864,14 +4881,26 @@
             "description": "Complete Scaffolding WorkFlow Setup for Laravel Project",
             "homepage": "https://github.com/thetechyhub/workflow",
             "keywords": [
+<<<<<<< HEAD
+=======
+                "CI/CD",
+>>>>>>> 18a4fdbf179258e3d1a6201a52fd54e8957d41de
                 "formatter",
                 "scaffolding",
                 "thetechyhub",
                 "workflow"
             ],
+<<<<<<< HEAD
             "transport-options": {
                 "relative": true
             }
+=======
+            "support": {
+                "source": "https://github.com/thetechyhub/workflow/tree/master",
+                "issues": "https://github.com/thetechyhub/workflow/issues"
+            },
+            "time": "2020-08-31T11:57:30+00:00"
+>>>>>>> 18a4fdbf179258e3d1a6201a52fd54e8957d41de
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
